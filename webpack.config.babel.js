@@ -11,10 +11,22 @@ module.exports = function (env = {}) {
     console.log(env);
 
     return {
-        entry: "./index.js",
+        // entry: "./index.js",
+        entry: {
+            bundle: './index.js',
+        },
         output: {
             path: jsPath,
-            filename: 'bundle.js'
+            filename: '[name].js'
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    resourceQuery: /workers/,
+                    use: { loader: 'worker-loader' }
+                }
+            ]
         },
 
         devServer: {
